@@ -8,7 +8,7 @@ class OrderControllerUnitTest(TestCase):
 		created_app = create_app()
 		self.app = created_app.test_client()
 		self.order_summary_service = order.order_summary
-		mock_response = {'summary': {}, 'total': 3.15}, 200
+		mock_response = {'summary': {}, 'total': 1.7}, 200
 		order.order_summary = mock.MagicMock(return_value=mock_response)
 
 	def tearDown(self):
@@ -29,7 +29,7 @@ class OrderControllerUnitTest(TestCase):
 		}
 		response = self.app.post('/order', json=data)
 		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.json['total'], 3.15)
+		self.assertEqual(response.json['total'], 1.7)
 
 
 if __name__ == "__main__":

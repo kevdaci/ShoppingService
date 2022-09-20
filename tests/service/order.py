@@ -30,11 +30,11 @@ class OrderServiceUnitTest(TestCase):
 	def test_order_summary_total(self):
 		response = order.order_summary(data['items'])
 		response_body = response[0]
-		self.assertEqual(response_body['total'], 3.15)
+		self.assertEqual(response_body['total'], 1.7)
 
 	def test_order_summary_items(self):
 		response = order.order_summary(data['items'])
 		response_body = response[0]
 		summary = response_body['summary']
-		self.assertEqual(summary[0], {"cost": 0.75, "name": "orange", "quantity": 3})
-		self.assertEqual(summary[1], {"cost": 2.4, "name": "apple", "quantity": 4})
+		self.assertEqual(summary[0], {"cost": 0.5, "name": "orange", "quantity": 3})
+		self.assertEqual(summary[1], {"cost": 1.2, "name": "apple", "quantity": 4})
