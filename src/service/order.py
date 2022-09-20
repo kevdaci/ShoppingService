@@ -1,10 +1,29 @@
 from src.static.items import ITEMS
+from src.database.orders import OrdersDB
 
+
+ordersDB = OrdersDB()
+
+def get_orders():
+	orders_dict = [
+		{ 'order_id': order.order_id, 'summary': order.summary, 'total': order.total }
+		for order in ordersDB.getAll()
+	]
+	return { 'orders': orders_dict }, 200
+
+
+def get_order(order_id):
+	order = ordersDB.get(order_id)
+	order_dict = { 'order_id': order.order_id, 'summary': order.summary, 'total': order.total }
+	return order_dict, 200
 
 def order_summary(items): 
 	summary = create_item_summary(items)
 	total_cost = get_total_cost(summary)
-	response = {'summary': summary, 'total': total_cost}, 200
+	response_body = { 'summary': summary, 'total': total_cost }
+	order = ordersDB.add(response_body['summary'], response_body['total'])
+	response_body['order_id'] = order.order_id
+	response = response_body, 200
 	return response
 
 def create_item_summary(items):
